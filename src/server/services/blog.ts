@@ -1,9 +1,9 @@
-import { IBlogPost, IBlogService } from "@/lib/server/models/blog";
-import { blogData } from "@/lib/server/data/blog";
+import { IBlogPost, IBlogService } from "server/models/blog";
+import { blogData } from "server/data/blog";
 import {
   IGlobalInstance,
   initializeService,
-} from "@/lib/server/utils/initializeService";
+} from "server/utils/initializeService";
 
 class BlogService implements IBlogService {
   constructor(private blogs: IBlogPost[]) {}
@@ -28,7 +28,7 @@ class BlogService implements IBlogService {
   }
 }
 
-let globalBlog = global as unknown as IGlobalInstance<BlogService>;
+const globalBlog = global as unknown as IGlobalInstance<BlogService>;
 
 const blog = initializeService(BlogService, blogData, globalBlog, "blog");
 

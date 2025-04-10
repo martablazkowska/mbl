@@ -1,8 +1,9 @@
 'use client';
+import { IFaq } from '@/server/models/faq';
 import { useState, useEffect } from 'react'
 
 const FaqPage = () => {
-    const [posts, setPosts] = useState(null)
+    const [posts, setPosts] = useState<IFaq[]>([])
  
   useEffect(() => {
     async function fetchPosts() {

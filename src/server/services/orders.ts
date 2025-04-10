@@ -1,39 +1,53 @@
-import { ordersData } from '@/lib/server/data/orders';
-import { IOrder, IOrderItem, IOrderService } from '@/lib/server/models/orders';
-import products from '@/lib/server/services/products';
-import { IProductService } from '@/lib/server/models/products';
-import {IGlobalInstance, initializeService} from "@/lib/server/utils/initializeService";
+import { ordersData } from "server/data/orders";
+import { IOrder, IOrderItem, IOrderService } from "server/models/orders";
+import products from "server/services/products";
+import { IProductService } from "server/models/products";
+import {
+  IGlobalInstance,
+  initializeService,
+} from "server/utils/initializeService";
 
 class OrdersService implements IOrderService {
-    constructor(private orders: IOrder[], private productsService: IProductService) {}
+  constructor(
+    private orders: IOrder[],
+    private productsService: IProductService
+  ) {}
 
-    getOrders(userId: number) {
-        const ordersList = this.orders.filter(order => order.userId === userId);
+  getOrders(userId: number) {
+    const ordersList = this.orders.filter((order) => order.userId === userId);
 
-        if(ordersList.length === 0) {throw new Error('Orders not found')}
-
-        return ordersList;
+    if (ordersList.length === 0) {
+      throw new Error("Orders not found");
     }
 
-    createOrder(userId: number, items: IOrderItem[]) {
-        items.forEach(item => {
-            this.productsService.setStock(item.productId, item.quantity)
-        })
+    return ordersList;
+  }
 
-        const orderId = this.orders.length + 1;
-        const date = new Date().toISOString();
+  createOrder(userId: number, items: IOrderItem[]) {
+    items.forEach((item) => {
+      this.productsService.setStock(item.productId, item.quantity);
+    });
 
-        this.orders.push({
-            orderId,
-            userId,
-            date,
-            items
-        })
-    }
+    const orderId = this.orders.length + 1;
+    const date = new Date().toISOString();
+
+    this.orders.push({
+      orderId,
+      userId,
+      date,
+      items,
+    });
+  }
 }
 
-let globalOrders = global as unknown as IGlobalInstance<OrdersService>
+const globalOrders = global as unknown as IGlobalInstance<OrdersService>;
 
-const orders = initializeService(OrdersService, ordersData, globalOrders, 'ordersService', products);
+const orders = initializeService(
+  OrdersService,
+  ordersData,
+  globalOrders,
+  "ordersService",
+  products
+);
 
 export default orders;

@@ -1,3 +1,3 @@
-import { ICart } from '@/lib/server/models/carts';
+import { ICart } from "server/models/carts";
 
-export const cartsData: ICart[] = []
+export const cartsData: ICart[] = [];

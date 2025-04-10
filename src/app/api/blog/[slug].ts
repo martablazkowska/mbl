@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NextApiRequest, NextApiResponse } from "next";
-import blog from "@/lib/server/services/blog";
+import blog from "server/services/blog";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "GET")

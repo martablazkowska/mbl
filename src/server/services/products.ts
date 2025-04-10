@@ -1,9 +1,9 @@
-import { IProduct } from "@/lib/server/models/products";
-import { productsData } from "@/lib/server/data/products";
+import { IProduct } from "server/models/products";
+import { productsData } from "server/data/products";
 import {
   IGlobalInstance,
   initializeService,
-} from "@/lib/server/utils/initializeService";
+} from "server/utils/initializeService";
 
 export class ProductsService {
   constructor(private products: IProduct[]) {}
@@ -59,7 +59,7 @@ export class ProductsService {
   }
 }
 
-let globalProducts = global as unknown as IGlobalInstance<ProductsService>;
+const globalProducts = global as unknown as IGlobalInstance<ProductsService>;
 
 const products = initializeService(
   ProductsService,

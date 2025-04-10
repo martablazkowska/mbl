@@ -1,3 +1,3 @@
-import { IOrder } from '@/lib/server/models/orders';
+import { IOrder } from "server/models/orders";
 
-export const ordersData: IOrder[] = []
+export const ordersData: IOrder[] = [];
